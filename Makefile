@@ -21,7 +21,7 @@ start-ide:
 		--env PASSWORD=kontarion \
 		--publish 8787:8787 \
 		--volume $$(pwd):/home/rstudio \
-		--volume $$HOME/.Renviron:/home/rstudio/.Renviron:ro \
+		--volume $$HOME/.Renviron:/home/rstudio/.Renviron \
 		kth-library/kontarion /init
 	@firefox http://localhost:8787 &
 
