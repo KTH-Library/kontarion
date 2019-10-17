@@ -1,6 +1,6 @@
 #! make
 
-IMAGE=kth-library/kontarion
+IMAGE=kthb/kontarion
 
 .PHONY: all 1.0.0 release latest start
 
@@ -13,7 +13,9 @@ latest: 1.0.0
 	docker build -t $(IMAGE):1.0.0 1.0.0
 
 release:
-	docker push $(IMAGE) $(IMAGE):1.0.0
+	docker login
+	docker push $(IMAGE)
+	docker push $(IMAGE):1.0.0
 
 start-ide:
 	@docker run -d --name mywebide \
@@ -23,7 +25,10 @@ start-ide:
 		--publish 8787:8787 \
 		--volume $$(pwd):/home/rstudio \
 		--volume $$HOME/.Renviron:/home/rstudio/.Renviron \
-		kth-library/kontarion /init
+		$(IMAGE) /init
+	@sleep 5
 	@firefox http://localhost:8787 &
 
-
+clean-ide:
+	@docker stop mywebide
+	@docker rm mywebide
