@@ -17,6 +17,7 @@ release:
 
 start-ide:
 	@docker run -d --name mywebide \
+		--env ROOT=TRUE \
 		--env USERID=$$UID \
 		--env PASSWORD=kontarion \
 		--publish 8787:8787 \
