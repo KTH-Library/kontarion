@@ -71,7 +71,7 @@ docker run -d --name mywebide \
 	--env PASSWORD=kontarion \
 	--publish 8787:8787 \
 	--volume $(pwd):/home/rstudio \
-	--volume ~/.Renviron:/home/rstudio/.Renviron:ro \
+	--volume ~/.Renviron:/home/rstudio/.Renviron \
 	kth-library/kontarion /init
 
 # use login rstudio:rstudio
@@ -100,16 +100,20 @@ docker exec -it mywebide \
 
 ## Building from source
 
-To build from source, use:
+To build `kontarion` locally from source, use something like this:
 
-    make
-    
-    # to time the build, use...
-    time make
+		# starting from scratch
+		mkdir ~/repos
+		cd ~repos    
+		git clone git@github.com:KTH-Library/kontarion.git
+		make
+
+		# if you want to time the build, use...
+		time make
     
 This takes around 19 minutes on a modern laptop.
 
-Use `docker images | grep kontarion` to inspect the resulting image, its total size is aroudn 7GB.
+Use `docker images | grep kontarion` to inspect the resulting image, its total size is around 7 GB.
 
 
 ## Common configuration options:
