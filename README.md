@@ -28,7 +28,7 @@ Additionally, it provides access to many hundreds of Python and R packages that 
 
 # Usage
 
-You can download and run `kontarion` locally using the following command, provided you have `docker` and `make` installed:
+You can download and run `kontarion` locally using the following command, provided you have `docker` and `make` installed first:
 
 		make start-ide
 
@@ -58,7 +58,7 @@ TODO: document and provide Makefile target
 
 If you are a developer or system administrator, you might be interested in building it from source, extending it or downloading and running `kontarion` locally.
 
-This requires that you have [installed Docker Community Edition](https://docs.docker.com/v17.09/engine/installation/) installed.
+This requires that you have [installed Docker Community Edition](https://docs.docker.com/v17.09/engine/installation/).
 
 Once you have `docker` installed, to start `kontarion` locally, link a local volume (in this example, the current working directory, `$(pwd)`) to the container, start it and point your browser to it with these CLI commands:
 
@@ -72,7 +72,7 @@ docker run -d --name mywebide \
 	--publish 8787:8787 \
 	--volume $(pwd):/home/rstudio \
 	--volume ~/.Renviron:/home/rstudio/.Renviron \
-	kth-library/kontarion /init
+	kthb/kontarion /init
 
 # use login rstudio:rstudio
 firefox http://localhost:8787 &
@@ -129,7 +129,7 @@ docker run -d --name mywebide \
 	-e PASSWORD=yourpasswordhere \
 	-v $(pwd)/foo:/home/$USER/foo \
 	-w /home/$USER/foo \
-	kth-library/kontarion /init
+	kthb/kontarion /init
 
 ```
 
@@ -140,7 +140,7 @@ To use the image as a Shiny server, you can override the startup command to use 
 ```bash
 docker run -d --name myshinyapp \
 	-p 3838:3838 \
-	kth-library/kontarion /usr/bin/shiny-server.sh
+	kthb/kontarion /usr/bin/shiny-server.sh
 
 firefox http://localhost:3838 &
 
@@ -154,7 +154,7 @@ To deploy your own app you can expose a directory on the host with your app to t
 docker run -d --name myshinyapp \
 	-p 3838:3838 \
 	-v $(pwd)/:/srv/shiny-server/ \
-	kth-library/kontarion /usr/bin/shiny-server.sh
+	kthb/kontarion /usr/bin/shiny-server.sh
 
 firefox http://localhost:3838 &
 ```
@@ -169,6 +169,6 @@ TODO: cover more scenarios...
 
 You can start a Jupyter Notebook server and interact with Anaconda via your browser:
 
-		docker run -it -p 8888:8888 kth-library/kontarion /bin/bash -c "/opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks && /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser"
+		docker run -it -p 8888:8888 kthb/kontarion /bin/bash -c "/opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks && /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser"
 
 You can then view the Jupyter Notebook by opening http://localhost:8888 in your browser, or http://my-docker-machine-ip:8888 if you are using a Docker Machine.
