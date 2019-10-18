@@ -45,9 +45,22 @@ This will download about ~ 4 GB of data, representing the `kthb/kontarion` Docke
 
 Use credentials for user/login: `rstudio/kontarion` when logging in.
 
-Strictly speaking the `make` and `git` tools are not needed to launch the container, but the Makefile contains a target called "start-ide" which specifies some switches to the startup command, including the password to use and the location of your local .Renviron file which hold your database connection credentials. 
+Strictly speaking the `make` and `git` tools are not needed to launch the container, but the Makefile contains a target called "start-ide" which specifies some switches to the startup command, including the password to use and the location of your local .Renviron file which hold your database connection credentials. This "start-ide" target wrap the following command:
+
+```bash
+docker run -d --name mywebide \
+	--env ROOT=TRUE \
+	--env USERID=$(UID) \
+	--env PASSWORD=kontarion \
+	--publish 8787:8787 \
+	--volume $(pwd)/home:/home/rstudio \
+	--volume $HOME/.Renviron:/home/rstudio/.Renviron \
+	kthb/kontarion /init
+```
 
 Having `git` and `make` available also allows you to make changes, re-build the system or extend it and contribute these changes back to the GitHub repository, should you wish to do so.
+
+
 
 # Developers and system administrators
 
@@ -70,7 +83,7 @@ docker run -d --name mywebide \
 	--env USERID=$UID \
 	--env PASSWORD=kontarion \
 	--publish 8787:8787 \
-	--volume $(pwd):/home/rstudio \
+	--volume $(pwd)/home:/home/rstudio \
 	--volume ~/.Renviron:/home/rstudio/.Renviron \
 	kthb/kontarion /init
 

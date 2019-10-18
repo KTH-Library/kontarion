@@ -23,7 +23,7 @@ start-ide:
 		--env USERID=$$UID \
 		--env PASSWORD=kontarion \
 		--publish 8787:8787 \
-		--volume $$(pwd):/home/rstudio \
+		--volume $$(pwd)/home:/home/rstudio \
 		--volume $$HOME/.Renviron:/home/rstudio/.Renviron \
 		$(IMAGE) /init
 	@sleep 5
