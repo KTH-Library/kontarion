@@ -14,7 +14,7 @@ It is packaged as a docker image which consists of a Debian OS base with a full 
 
 The platform is an AGPL-licensed portable dockerized software stack supporting reproducible research efforts within the bibliometrics domain but also support analytics workflows in other domains. It is based fully on free and open source licensed software.
 
-It can be used entirely through the web browser and/or at the CLI and it can run locally or deployed at a server in the cloud.
+It can be used entirely through the web browser and/or at the CLI and it can run locally or be deployed at a server in the cloud to support users who do not want to or need to run locally or install the dependencies (docker, make etc).
 
 # Data Science using R
 
@@ -28,19 +28,75 @@ Additionally, it provides access to many hundreds of Python and R packages that 
 
 # Usage
 
-You can download and run `kontarion` locally using the following command, provided you have `docker` and `make` installed first:
+Running locally requires that you have installed Docker, for example [Docker Community Edition](https://docs.docker.com/v17.09/engine/installation/). Depending on your base operating system, installation procedures differ but are well documented online.
 
-		make start-ide
+Once you have `docker` installed, you can download and run `kontarion` locally using the following commands, provided you have `docker` and `make` installed first:
 
-This will start the web-based RStudio Web Open Source Edition. 
+```bash
+# starting from scratch
+mkdir ~/repos
+cd ~/repos
+git clone git@github.com:KTH-Library/kontarion.git
+cd kontarion
+make start-ide
+```
+
+This will download about ~ 4 GB of data, representing the `kthb/kontarion` Docker Image. The `make start-ide` will run the statements in the Makefile that starts the web-based RStudio Web Open Source Edition. 
 
 Use credentials for user/login: `rstudio/kontarion` when logging in.
+
+Strictly speaking the `make` and `git` tools are not needed to launch the container, but the Makefile contains a target called "start-ide" which specifies some switches to the startup command, including the password to use and the location of your local .Renviron file which hold your database connection credentials. 
+
+Having `git` and `make` available also allows you to make changes, re-build the system or extend it and contribute these changes back to the GitHub repository, should you wish to do so.
+
+# Developers and system administrators
+
+If you are a developer or system administrator, you might be interested in building it from source, extending it or downloading and running `kontarion` locally.
 
 The `kontarion` platform can also be used for purposes other than functioning as an IDE, such as:
 
 - an application server (for `shiny` based web applications etc)
 - an API server (for `plumber`-based REST APIs)
 - a CLI execution context for automating tasks (syncing data / setting up data flows, scheduling jobs etc)
+
+Once you have `docker` installed, to start `kontarion` locally, link a local volume (in this example, the current working directory, `$(pwd)`) to the container, start it and point your browser to it with these CLI commands:
+
+```bash
+# start kontarion services to run the RStudio Open Source Web Edition
+# mount your .Renviron file with the environment variables into the container... 
+# use DBHOST, DBNAME, DBUSER and DBPASS to define your MS SQL Server connection credentials
+docker run -d --name mywebide \
+	--env ROOT=TRUE \
+	--env USERID=$UID \
+	--env PASSWORD=kontarion \
+	--publish 8787:8787 \
+	--volume $(pwd):/home/rstudio \
+	--volume ~/.Renviron:/home/rstudio/.Renviron \
+	kthb/kontarion /init
+
+# use login rstudio:kontarion
+firefox http://localhost:8787 &
+
+```
+
+The first command will start the container in the background so you can visit `http://localhost:8787` with your web browser and log in with username:password as `rstudio:kontarion`.
+
+You can also then access the CLI if you wish on the running `mywebide` container:
+
+```bash
+docker exec -it mywebide bash
+
+```
+
+A CLI/shell/terminal is available also from within the IDE's own UI.
+
+You can list the full set of included R packages by executing a command against the running container like so:
+
+```bash
+docker exec -it mywebide \
+	R --quiet -e "cat(rownames(installed.packages()))"
+
+```
 
 ## Running apps
 
@@ -54,58 +110,15 @@ TODO: document and provide Makefile target
 
 TODO: document and provide Makefile target
 
-# Developers
-
-If you are a developer or system administrator, you might be interested in building it from source, extending it or downloading and running `kontarion` locally.
-
-This requires that you have [installed Docker Community Edition](https://docs.docker.com/v17.09/engine/installation/).
-
-Once you have `docker` installed, to start `kontarion` locally, link a local volume (in this example, the current working directory, `$(pwd)`) to the container, start it and point your browser to it with these CLI commands:
-
-```bash
-# start kontarion services to run the RStudio Open Source Web Edition
-# mount your .Renviron file with environment variables ... 
-# use DBUSER and DBPASS to set your MS SQL Server credentials
-docker run -d --name mywebide \
-	--env USERID=$UID \
-	--env PASSWORD=kontarion \
-	--publish 8787:8787 \
-	--volume $(pwd):/home/rstudio \
-	--volume ~/.Renviron:/home/rstudio/.Renviron \
-	kthb/kontarion /init
-
-# use login rstudio:rstudio
-firefox http://localhost:8787 &
-
-```
-
-The first command will start the container in the background so you can visit `http://localhost:8787` with your web browser and log in with username:password as `rstudio:kontarion`.
-
-You can also then run the CLI if you wish with:
-
-```bash
-docker exec -it mywebide bash
-
-```
-
-A CLI/shell/terminal is available also from within the IDE's own UI.
-
-You can list the full set of included R packages with:
-
-```bash
-docker exec -it mywebide \
-	R --quiet -e "cat(rownames(installed.packages()))"
-
-```
-
 ## Building from source
 
 To build `kontarion` locally from source, use something like this:
 
 		# starting from scratch
 		mkdir ~/repos
-		cd ~repos    
+		cd ~/repos
 		git clone git@github.com:KTH-Library/kontarion.git
+		cd kontarion
 		make
 
 		# if you want to time the build, use...
@@ -113,8 +126,7 @@ To build `kontarion` locally from source, use something like this:
     
 This takes around 19 minutes on a modern laptop.
 
-Use `docker images | grep kontarion` to inspect the resulting image, its total size is around 7 GB.
-
+Use `docker images | grep kontarion` to inspect the resulting image, its total size is around 7 GB uncompressed, and around 4 GB compressed (which is what is downloaded from [Docker Hub](https://hub.docker.com/r/kthb) if just issuing `make start-ide` and not building from source).
 
 ## Common configuration options:
 
@@ -172,3 +184,42 @@ You can start a Jupyter Notebook server and interact with Anaconda via your brow
 		docker run -it -p 8888:8888 kthb/kontarion /bin/bash -c "/opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks && /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser"
 
 You can then view the Jupyter Notebook by opening http://localhost:8888 in your browser, or http://my-docker-machine-ip:8888 if you are using a Docker Machine.
+
+# Contributions
+
+[![Get the GitHub CLI
+Badge](https://img.shields.io/badge/CLI-GitHub%20CLI%20Friendly-blue.svg)](https://hub.github.com)
+
+The [GitHub CLI tool](https://hub.github.com) can be used for
+reproducible collaboration workflows when collaborating on this (or any
+other) repo, for whatever reason - such as for convenience and
+automation support or perhaps because someone is handing out CLI badges
+and you want one ;).
+
+Usage example while at the CLI, if you want to add a feature branch that
+provides command line support for using this R package along with usage
+examples:
+
+    $ hub clone KTH-Library/kontarion
+    $ cd kontarion
+    
+    # create a topic branch
+    $ git checkout -b add-new-feature
+    
+    # make changes and test locally ... then ...
+    
+    $ git commit -m "done with my new feature"
+    
+    # It's time to fork the repo!
+    $ hub fork --remote-name=origin
+    → (forking repo on GitHub...)
+    → git remote add origin git@github.com:YOUR_USER/kontarion.git
+    
+    # push the changes to your new remote
+    $ git push origin add-new-feature
+    
+    # open a pull request for the topic branch you've just pushed
+    $ hub pull-request
+    → (opens a text editor for your pull request message)
+
+
