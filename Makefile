@@ -6,8 +6,8 @@ IMAGE=kthb/kontarion
 
 all: latest
 
-latest: 1.0.0
-	docker tag $(IMAGE):1.0.0 $(IMAGE):latest
+latest: 
+	docker build -t $(IMAGE) .
 
 1.0.0: 
 	docker build -t $(IMAGE):1.0.0 1.0.0

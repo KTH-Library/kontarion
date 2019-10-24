@@ -63,6 +63,20 @@ RUN install2.r --error \
 	odbc \
 	ggthemes
 
+# add GTK2+ system lib required for CITAN
+
+RUN apt-get update && apt-get install -y \
+  libgtk2.0-dev
+
+RUN install2.r --error \
+	microdemic \
+	scholar \
+	CITAN \
+	sas7bdat \
+	haven \
+	SAScii \
+	rscopus
+
 EXPOSE 8888
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
