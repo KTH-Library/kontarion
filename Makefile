@@ -18,16 +18,19 @@ release:
 	docker push $(IMAGE):1.0.0
 
 start-ide:
-	@docker run -d --name mywebide \
-		--env ROOT=TRUE \
-		--env USERID=$$UID \
+	docker run -d --name mywebide \
+		--env ROOT=true \
+		--env USER=rstudio \
 		--env PASSWORD=kontarion \
+		--env USERID=$$(id -u) \
+		--env GROUPID=$$(id -g) \
 		--publish 8787:8787 \
-		--volume $$(pwd)/home:/home/rstudio \
 		--volume $$HOME/.Renviron:/home/rstudio/.Renviron \
+		--volume $$(pwd)/login.html:/etc/rstudio/login.html:ro \
+		--volume $$(pwd)/rserver.conf:/etc/rstudio/rserver.conf \
+		--volume $$(pwd)/home:/home/rstudio/home \
 		$(IMAGE) /init
-	@sleep 5
-	@firefox http://localhost:8787 &
+#		--user $$(id -u):$$(id -g) \
 
 clean-ide:
 	@docker stop mywebide
