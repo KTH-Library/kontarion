@@ -35,3 +35,32 @@ start-ide:
 clean-ide:
 	@docker stop mywebide
 	@docker rm mywebide
+
+start-app:
+	docker run -d --name myapp \
+		--env USERID=$$(id -u) \
+		--env GROUPID=$$(id -g) \
+		--env ABM_API="http://myapp:8080" \
+		--publish 8000:8000 \
+		--env-file $$HOME/.Renviron \
+		--volume $$HOME/.Renviron:/root/.Renviron:ro \
+		$(IMAGE) R -e "bibliomatrix::run_app('abm', port = 8000, host = '0.0.0.0')" 
+
+start-api:
+	docker run -d --name myapi \
+		--env USERID=$$(id -u) \
+		--env GROUPID=$$(id -g) \
+		--publish 8080:8080 \
+		--env-file $$HOME/.Renviron \
+		--volume $$HOME/.Renviron:/root/.Renviron:ro \
+		--workdir /usr/local/lib/R/site-library/bibliomatrix/plumber/abm \
+		$(IMAGE) R -e "bibliomatrix::run_api(port = 8080, host = '0.0.0.0')"
+
+clean-app:
+	@docker stop myapp
+	@docker rm myapp
+
+clean-api:
+	@docker stop myapi
+	@docker rm myapi
+

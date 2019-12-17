@@ -81,8 +81,7 @@ RUN install2.r --error \
 #	leiden \
 #	rex
 
-#RUN R -e 'remotes::install_github("tidyverse/purrr", dependencies = TRUE)'
-RUN R -e 'remotes::install_github("kth-library/bibliomatrix", dependencies = TRUE) '
+RUN R -e 'remotes::install_github("kth-library/bibliomatrix", dependencies=TRUE)' 
 
 EXPOSE 8888
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
