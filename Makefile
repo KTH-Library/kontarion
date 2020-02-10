@@ -2,24 +2,31 @@
 
 IMAGE=kthb/kontarion
 
-.PHONY: all 1.0.0 1.1.0 release latest start
+.PHONY: all 1.0.0 1.1.0 1.2.0 release latest latest-release start
 
 all: latest
 
-latest: 
+latest:
 	docker build -t $(IMAGE) .
 
-1.0.0: 
+1.0.0:
 	docker build -t $(IMAGE):1.0.0 1.0.0
 
 1.1.0:
 	docker build -t $(IMAGE):1.1.0 1.1.0
+
+1.2.0:
+	docker build -t $(IMAGE):1.2.0 1.2.0
+
+latest-release:
+	docker push $(IMAGE)
 
 release:
 	docker login
 	docker push $(IMAGE)
 	docker push $(IMAGE):1.0.0
 	docker push $(IMAGE):1.1.0
+	docker push $(IMAGE):1.2.0
 
 start-ide:
 	docker run -d --name mywebide \
