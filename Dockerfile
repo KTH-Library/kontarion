@@ -85,7 +85,7 @@ RUN R -e 'remotes::install_github("ropensci/crevents", dependencies = TRUE)'
 
 RUN export ADD=shiny && bash /etc/cont-init.d/add
 
-RUN R -e 'remotes::install_github("kth-library/bibliomatrix", dependencies=TRUE)'
+RUN R -e 'remotes::install_github("kth-library/bibliomatrix", dependencies = TRUE)'
 
 RUN cd /srv/shiny-server && \
 	rm -rf * && \
