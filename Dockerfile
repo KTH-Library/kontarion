@@ -127,6 +127,13 @@ RUN cd /srv/shiny-server && \
 	chmod -R o+wr /usr/local/lib/R/site-library/bibliomatrix/shiny-apps/abm/www/cache && \
 	ln -s /usr/local/lib/R/site-library/bibliomatrix/shiny-apps/abm/* /srv/shiny-server
 
+RUN apt-get update && apt-get install -y \
+    xtail
+
+COPY shiny-server.conf /etc/shiny-server/shiny-server.conf
+COPY shiny-server.sh /usr/bin/shiny-server.sh
+COPY rserver.conf /etc/rstudio/rserver.conf
+COPY login.html /etc/rstudio/login.html
 
 EXPOSE 8888
 EXPOSE 3838
