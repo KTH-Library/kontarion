@@ -85,37 +85,6 @@ RUN R -e 'remotes::install_github("ropensci/crevents", dependencies = TRUE)'
 
 RUN export ADD=shiny && bash /etc/cont-init.d/add
 
-RUN apt-get update && apt-get install -y \
-    xtail
-
-COPY shiny-server.conf /etc/shiny-server/shiny-server.conf
-COPY shiny-server.sh /usr/bin/shiny-server.sh
-COPY rserver.conf /etc/rstudio/rserver.conf
-COPY login.html /etc/rstudio/login.html
-
-# shinycannon, shinyloadtest, shinytest
-
-RUN apt-get -y update && apt-get install -y --no-install-recommends \
-	apache2-utils  # for ab (apache benchmark tool)
-
-ENV TMPDIR /tmp/cannon
-
-RUN mkdir -p $TMPDIR && cd $TMPDIR && \
-	wget https://s3.amazonaws.com/rstudio-shinycannon-build/2019-11-22-20:24:21_1.0.0-9b22a92/deb/shinycannon_1.0.0-9b22a92_amd64.deb && \
-	dpkg -i shinycannon_1.0.0-9b22a92_amd64.deb 
-
-RUN R -e "remotes::install_github('rstudio/shinyloadtest')"
-
-RUN install2.r --error \
-	RSelenium \
-	shinytest
-	
-RUN rm -rf $TMPDIR
-
-RUN R -e 'remotes::install_github("kth-library/ktheme",  dependencies=TRUE)'
-RUN R -e 'remotes::install_github("kth-library/dblp", dependencies=TRUE)'
-RUN R -e 'remotes::install_github("kth-library/XsearchLIBRIS", dependencies=TRUE)'
-RUN R -e 'remotes::install_github("kth-library/kthapi", dependencies=TRUE)'
 RUN R -e 'remotes::install_github("kth-library/bibliomatrix", dependencies=TRUE)'
 
 RUN cd /srv/shiny-server && \
@@ -127,6 +96,13 @@ RUN cd /srv/shiny-server && \
 	chmod -R o+wr /usr/local/lib/R/site-library/bibliomatrix/shiny-apps/abm/www/cache && \
 	ln -s /usr/local/lib/R/site-library/bibliomatrix/shiny-apps/abm/* /srv/shiny-server
 
+RUN apt-get update && apt-get install -y \
+    xtail
+
+COPY shiny-server.conf /etc/shiny-server/shiny-server.conf
+COPY shiny-server.sh /usr/bin/shiny-server.sh
+COPY rserver.conf /etc/rstudio/rserver.conf
+COPY login.html /etc/rstudio/login.html
 
 EXPOSE 8888
 EXPOSE 3838
@@ -135,4 +111,4 @@ ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
 
 # NB: if running with the shiny server, launch using this command: /usr/bin/shiny-server.sh
-# NB: if running loadtest, launch using this command: "init"
+
