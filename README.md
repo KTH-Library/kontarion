@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# kontarion <img src="kontarion.png" align="right" />
+# kontarion <img src="https://raw.githubusercontent.com/KTH-Library/kontarion/master/kontarion.png" align="right" />
 
 `kontarion` is a dockerized Open BI Analytics Platform for reproducible
 open research work. It can be customized for data science workflows
