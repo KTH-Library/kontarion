@@ -116,7 +116,7 @@ RUN rm -rf $TMPDIR
 
 RUN R -e 'remotes::install_github("kth-library/dblp", dependencies=TRUE)'
 RUN R -e 'remotes::install_github("kth-library/XsearchLIBRIS", dependencies=TRUE)'
-RUN R -e 'remotes::install_github("kth-library/bibliomatrix", dependencies = TRUE)'
+RUN R -e 'remotes::install_github("kth-library/bibliomatrix", dependencies=TRUE)'
 
 RUN R -e 'ktheme::install_fonts_linux("/usr/local/share/fonts")'
 
