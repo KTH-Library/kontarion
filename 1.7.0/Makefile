@@ -10,7 +10,7 @@ devel:
 	docker build -t $(IMAGE):devel .
 
 latest:
-	docker build -t $(IMAGE) 1.7.0
+	docker build -t $(IMAGE) .
 
 1.0.0:
 	docker build -t $(IMAGE):1.0.0 1.0.0
