@@ -65,7 +65,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./1.7.0/
-        file: ./Dockerfile
+        file: ./1.7.0/Dockerfile
         builder: ${{ steps.buildx.outputs.name }}
         labels: |
           org.opencontainers.image.authors=${{ github.repository_owner }}
