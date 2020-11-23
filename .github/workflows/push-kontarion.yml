@@ -65,7 +65,7 @@ jobs:
       with:
         context: ./1.7.0/
         file: ./Dockerfile
-	builder: ${{ steps.buildx.outputs.name }}
+        builder: ${{ steps.buildx.outputs.name }}
         labels: |
           org.opencontainers.image.authors=${{ github.repository_owner }}
           org.opencontainers.image.created=${{ env.BUILD_DATE }}
