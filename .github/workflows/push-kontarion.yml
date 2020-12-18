@@ -81,9 +81,10 @@ jobs:
           ${{ env.IMAGE }}:${{ env.GIT_SHA }}
           ${{ env.IMAGE }}:${{ env.BUILD_VER }}
 #        load: true
+        push: true
         platforms: linux/amd64
-        cache-from: type=local,src=/tmp/.buildx-cache
-        cache-to: type=local,dest=/tmp/.buildx-cache
+        cache-from: type=registry,ref=${{ env.IMAGE }}:latest
+        cache-to: type=inline
 #    - run: docker push ${{ env.IMAGE }}:latest
 
 #    -
