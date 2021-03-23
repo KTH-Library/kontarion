@@ -2,7 +2,7 @@
 
 IMAGE=kthb/kontarion
 
-.PHONY: all 1.0.0 1.1.0 1.2.0 1.3.0 1.4.0 1.5.0 1.6.0 1.7.0 1.7.1 1.7.2 release latest latest-release start
+.PHONY: all 1.0.0 1.1.0 1.2.0 1.3.0 1.4.0 1.5.0 1.6.0 1.7.0 1.7.1 release latest latest-release start
 
 all: latest
 
@@ -38,9 +38,6 @@ latest:
 
 1.7.1:
 	docker build -t $(IMAGE):1.7.1 1.7.1
-
-1.7.2:
-	docker build -t $(IMAGE):1.7.2 1.7.2
 
 latest-release:
 	docker push $(IMAGE)

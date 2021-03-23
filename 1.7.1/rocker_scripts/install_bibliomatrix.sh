@@ -1,7 +1,11 @@
 #!/bin/bash
 set -e
 
+# TODO: packages to include in DESCRIPTION for bibliomatrix
 #install2.r --error --skipinstalled \
+#	here \
+#	formattable \
+#	shinythemes
 
 # packages from github.com/kth-library
 echo "GITHUB_PAT=$GITHUB_PAT" >> ~/.Renviron
