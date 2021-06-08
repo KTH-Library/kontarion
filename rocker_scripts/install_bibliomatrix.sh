@@ -10,7 +10,9 @@ R -e 'remotes::install_github("kth-library/XsearchLIBRIS", dependencies=TRUE)'
 R -e 'remotes::install_github("kth-library/institutions", dependencies=TRUE)'
 R -e 'remotes::install_github("kth-library/cordis", dependencies=TRUE)'
 R -e 'remotes::install_url("https://cran.r-project.org/src/contrib/Archive/kableExtra/kableExtra_1.1.0.tar.gz", force = TRUE)'
+
 R -e 'remotes::install_github("kth-library/bibliomatrix", dependencies=TRUE)'
 R -e 'ktheme::install_fonts_linux("/usr/local/share/fonts")'
+R -e 'remotes::install_github("kth-library/kthcorpus", dependencies=TRUE)'
 
 

@@ -1,8 +1,8 @@
 # R v 4 + python 3, Tensorflow, tidyverse, devtools, verse (tex and publishing related tools)
-FROM rocker/ml-verse:4.0.2 
+FROM rocker/ml-verse:4.0.5
 
 # Shiny server
-ENV SHINY_SERVER_VERSION 1.5.14.948
+ENV SHINY_SERVER_VERSION 1.5.16.958
 RUN /rocker_scripts/install_shiny_server.sh
 
 # RStudio

@@ -53,7 +53,8 @@ install2.r --error --skipinstalled \
 
 install2.r --error --skipinstalled \
 	rcrossref \
-	citecorp
+	citecorp \
+	rbibutils
 
 # packages from GitHub
 R -e 'remotes::install_github("ropensci/crevents", dependencies = TRUE)'

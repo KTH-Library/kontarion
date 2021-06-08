@@ -20,6 +20,7 @@ services:
       - ./login.html:/etc/rstudio/login.html:ro
       - ./rserver.conf:/etc/rstudio/rserver.conf
       - ./home:/home/rstudio/home
+      - ${HOME}/.config/bibmon:/home/rstudio/.config/bibmon
     command: /init 
 
   api:
@@ -31,7 +32,7 @@ services:
     working_dir: /usr/local/lib/R/site-library/bibliomatrix/plumber/abm
     volumes:
       - .Renviron:/root/.Renviron:ro
-      - data_abm:/root/.config/bibmon
+      - ${HOME}/.config/bibmon:/root/.config/bibmon
 
   app:
     image: kthb/kontarion:latest
@@ -44,6 +45,6 @@ services:
     depends_on:
       - api
     volumes:
-      - data_abm:/root/.config/bibmon
+      - ${HOME}/.config/bibmon:/root/.config/bibmon
 
 
