@@ -2,7 +2,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - '1.7.3/**'
+      - '1.7.4/**'
       - '.github/workflows/push-kontarion.yml'
 
 jobs:
@@ -41,7 +41,7 @@ jobs:
       name: Docker build and push
       uses: docker/build-push-action@v2
       with:
-        context: ./1.7.3
+        context: ./1.7.4
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: true
