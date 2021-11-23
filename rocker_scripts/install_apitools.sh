@@ -5,4 +5,3 @@ echo "GITHUB_PAT=$GITHUB_PAT" >> ~/.Renviron
 
 R -e 'remotes::install_github("jandix/sealr", dependencies=TRUE)'
 
-
