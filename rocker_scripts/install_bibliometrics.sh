@@ -14,13 +14,13 @@ apt-get install -y --no-install-recommends \
 
 install2.r --error --skipinstalled \
 	oai \
-	rentrez \
-	fulltext \
-	europepmc
+	rentrez
+#	fulltext \
+#	europepmc
 
 # R packages on CRAN
 
-# generic tooling/infra packages 
+# generic tooling/infra packages
 install2.r --error --skipinstalled \
 	plumber \
 	configr \

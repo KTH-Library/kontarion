@@ -1,12 +1,15 @@
 # R v 4 + python 3, Tensorflow, tidyverse, devtools, verse (tex and publishing related tools)
-FROM rocker/ml-verse:4.0.5
+FROM rocker/ml-verse:4.1.2
+
+RUN echo 'options(repos = c(CRAN = "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"))' >> ${R_HOME}/etc/Rprofile.site && \
+	R -e 'source("https://docs.rstudio.com/rspm/1.1.4/admin/check-user-agent.R")'
 
 # Shiny server
-ENV SHINY_SERVER_VERSION 1.5.16.958
+ENV SHINY_SERVER_VERSION 1.5.17.973
 RUN /rocker_scripts/install_shiny_server.sh
 
 # RStudio
-RUN /rocker_scripts/install_rstudio.sh
+#RUN /rocker_scripts/install_rstudio.sh
 
 # ccache
 COPY rocker_scripts/install_ccache.sh /rocker_scripts/install_ccache.sh
@@ -59,6 +62,10 @@ RUN rm ~/.Renviron
 
 # update rstudio
 #RUN RSTUDIO_VERSION="daily" /rocker_scripts/install_rstudio.sh
+
+# install S3 client (minio client)
+COPY rocker_scripts/install_minio.sh /rocker_scripts/install_minio.sh
+RUN /rocker_scripts/install_minio.sh
 
 EXPOSE 8888
 EXPOSE 3838

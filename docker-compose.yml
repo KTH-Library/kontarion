@@ -6,7 +6,7 @@ volumes:
 services:
 
   ide:
-    image: kthb/kontarion:latest
+    image: ghcr.io/kth-library/kontarion:latest
     ports:
       - 8787:8787
     env_file: .Renviron
@@ -24,7 +24,7 @@ services:
     command: /init 
 
   api:
-    image: kthb/kontarion:latest
+    image: ghcr.io/kth-library/kontarion:latest
     ports:
       - 8080:8080
     env_file: .Renviron
@@ -35,7 +35,7 @@ services:
       - ${HOME}/.config/bibmon:/root/.config/bibmon
 
   app:
-    image: kthb/kontarion:latest
+    image: ghcr.io/kth-library/kontarion:latest
     ports:
       - 8000:8000
     environment:
