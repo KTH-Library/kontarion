@@ -2,7 +2,7 @@
 
 IMAGE=kthb/kontarion
 
-.PHONY: all 1.0.0 1.1.0 1.2.0 1.3.0 1.4.0 1.5.0 1.6.0 1.7.0 1.7.1 1.7.2 1.7.3 1.7.4 1.7.5 release latest latest-release start
+.PHONY: all
 
 all: latest
 
@@ -12,64 +12,12 @@ devel:
 latest:
 	docker build -t $(IMAGE) .
 
-1.0.0:
-	docker build -t $(IMAGE):1.0.0 1.0.0
-
-1.1.0:
-	docker build -t $(IMAGE):1.1.0 1.1.0
-
-1.2.0:
-	docker build -t $(IMAGE):1.2.0 1.2.0
-
-1.3.0:
-	docker build -t $(IMAGE):1.3.0 1.3.0
-
-1.4.0:
-	docker build -t $(IMAGE):1.4.0 1.4.0
-
-1.5.0:
-	docker build -t $(IMAGE):1.5.0 1.5.0
-
-1.6.0:
-	docker build -t $(IMAGE):1.6.0 1.6.0
-
-1.7.0:
-	docker build -t $(IMAGE):1.7.0 1.7.0
-
-1.7.1:
-	docker build -t $(IMAGE):1.7.1 1.7.1
-
-1.7.2:
-	docker build -t $(IMAGE):1.7.2 1.7.2
-
-1.7.3:
-	docker build -t $(IMAGE):1.7.3 1.7.3
-	
-1.7.4:
-	docker build -t $(IMAGE):1.7.4 1.7.4
-	
-1.7.5:
-	docker build -t $(IMAGE):1.7.5 1.7.5
-
 latest-release:
 	docker push $(IMAGE)
 
 release:
 	docker login
 	docker push $(IMAGE)
-	docker push $(IMAGE):1.0.0
-	docker push $(IMAGE):1.1.0
-	docker push $(IMAGE):1.2.0
-	docker push $(IMAGE):1.3.0
-	docker push $(IMAGE):1.4.0
-	docker push $(IMAGE):1.5.0
-	docker push $(IMAGE):1.6.0
-	docker push $(IMAGE):1.7.0
-	docker push $(IMAGE):1.7.1
-	docker push $(IMAGE):1.7.2
-	docker push $(IMAGE):1.7.3
-	docker push $(IMAGE):1.7.4
-	docker push $(IMAGE):1.7.5
 
 start-ide:
 	docker run -d --name mywebide \
