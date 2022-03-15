@@ -1,9 +1,10 @@
 on:
   workflow_dispatch:
   push:
-    paths:
-      - '1.7.5/**'
-      - '.github/workflows/push-kontarion.yml'
+    branches:
+      - master
+#    paths:
+#      - '.github/workflows/push-kontarion.yml'
 
 jobs:
   kontarion-push:
@@ -41,7 +42,9 @@ jobs:
       name: Docker build and push
       uses: docker/build-push-action@v2
       with:
-        context: ./1.7.5
+        context: .
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: true
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
