@@ -14,11 +14,14 @@ with various data sources, including MS SQL Server databases.
 
 ## What does it contain?
 
-It is packaged as a docker image which consists of a Debian OS base with
+It is packaged as a docker image which consists of a Linux OS base with
 a full software stack of versioned R and Python components layered on
 top, in order to support Data Science work aiming at developing and
 publishing analytics. It is also able to support data analysis work
 involving machine learning and algorithmic intelligence applications.
+
+It is an extension building on this
+[base](https://github.com/rocker-org/rocker-versioned2/wiki/ml-verse_b5f622740460).
 
 # Data Science using R and Python
 
@@ -59,7 +62,7 @@ cd kontarion
 make start-ide
 ```
 
-This will download about ~ 4 GB of data, representing the
+This will download about \~ 4 GB of data, representing the
 `kthb/kontarion` Docker Image. The `make start-ide` will run the
 statements in the Makefile that starts the web-based RStudio Web Open
 Source Edition.
@@ -88,17 +91,17 @@ docker run -d --name mywebide \
 
 Note that this command assumes several things:
 
-  - you have a directory named `home` under your present working
+-   you have a directory named `home` under your present working
     directory, representing your rstudio home directory (this will be
     the case if you have checked out the kontarion github repo with
     `git@github.com:KTH-Library/kontarion.git` and then changed your
     present working directory into this folder)
-  - you have your `.Renviron` file in your system home directory
+-   you have your `.Renviron` file in your system home directory
     (normally the location is available in the `HOME` system environment
     variable) and that your `.Renviron` file holds your database
     credentials in environment variables named DBHOST, DBNAME, DBUSER
     and DBPASS
-  - the command `id -u` returns the user id on the system
+-   the command `id -u` returns the user id on the system
 
 NB: This command may need to be amended on systems where these
 assumptions are not valid. If you get an intialization error that says
@@ -146,8 +149,8 @@ username:password as `rstudio:kontarion`.
 
 Use a custom user named after your user on the host, and password
 specified in the `PASSWORD` environmental variable, and give the user
-root permissions (add to sudoers) and work on files in the ~/foo working
-directory:
+root permissions (add to sudoers) and work on files in the \~/foo
+working directory:
 
 ``` bash
 docker run -d --name mywebide \
@@ -169,17 +172,15 @@ Available options are documented in more detail
 To build `kontarion` locally from source, starting from scratch, use
 something like this:
 
-``` 
-    # starting from scratch
-    mkdir ~/repos
-    cd ~/repos
-    git clone git@github.com:KTH-Library/kontarion.git
-    cd kontarion
-    make
+        # starting from scratch
+        mkdir ~/repos
+        cd ~/repos
+        git clone git@github.com:KTH-Library/kontarion.git
+        cd kontarion
+        make
 
-    # if you want to time the build, use...
-    time make
-```
+        # if you want to time the build, use...
+        time make
 
 This takes around 19 minutes on a modern laptop.
 
@@ -194,11 +195,11 @@ not building from source).
 The `kontarion` platform can also be used for purposes other than
 functioning as an IDE, such as running non-interactive services:
 
-  - a *web application server* (for `shiny` based web applications etc)
-  - an *API server* (for `plumber`-based REST APIs)
-  - a *report server* (to render Rmarkdown-based content into HTML / PDF
+-   a *web application server* (for `shiny` based web applications etc)
+-   an *API server* (for `plumber`-based REST APIs)
+-   a *report server* (to render Rmarkdown-based content into HTML / PDF
     / Office document-oriented and other supported document formats)
-  - a *CLI execution context* for automating tasks (syncing data /
+-   a *CLI execution context* for automating tasks (syncing data /
     setting up data flows, scheduling jobs etc)
 
 ### Running web apps
@@ -220,9 +221,9 @@ This will launch the default Shiny app in the container (see the
 Dockerfile for deployment details).
 
 To deploy your own app you can expose a directory on the host with your
-app to the container. For mapping the host directory use the option `-v
-<host_dir>:<container_dir>`. The following command will use the present
-working directory as the Shiny app directory.
+app to the container. For mapping the host directory use the option
+`-v <host_dir>:<container_dir>`. The following command will use the
+present working directory as the Shiny app directory.
 
 ``` bash
 docker run -d --name myshinyapp \
@@ -301,22 +302,22 @@ examples:
 
     $ hub clone KTH-Library/kontarion
     $ cd kontarion
-    
+
     # create a topic branch
     $ git checkout -b add-new-feature
-    
+
     # make changes and test locally ... then ...
-    
+
     $ git commit -m "done with my new feature"
-    
+
     # It's time to fork the repo!
     $ hub fork --remote-name=origin
     → (forking repo on GitHub...)
     → git remote add origin git@github.com:YOUR_USER/kontarion.git
-    
+
     # push the changes to your new remote
     $ git push origin add-new-feature
-    
+
     # open a pull request for the topic branch you've just pushed
     $ hub pull-request
     → (opens a text editor for your pull request message)

@@ -21,7 +21,9 @@ It therefore has various packages to support various bibliometrics workflows pre
 
 ## What does it contain?
 
-It is packaged as a docker image which consists of a Debian OS base with a full software stack of versioned R and Python components layered on top, in order to support Data Science work aiming at developing and publishing analytics. It is also able to support data analysis work involving machine learning and algorithmic intelligence applications. 
+It is packaged as a docker image which consists of a Linux OS base with a full software stack of versioned R and Python components layered on top, in order to support Data Science work aiming at developing and publishing analytics. It is also able to support data analysis work involving machine learning and algorithmic intelligence applications. 
+
+It is an extension building on this [base](https://github.com/rocker-org/rocker-versioned2/wiki/ml-verse_b5f622740460).
 
 # Data Science using R and Python
 
