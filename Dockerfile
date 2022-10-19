@@ -1,5 +1,5 @@
 # R v 4 + python 3, Tensorflow, tidyverse, devtools, verse (tex and publishing related tools)
-FROM rocker/ml-verse:4.2.0
+FROM rocker/ml-verse:4.2.1
 
 # add GITHUB_PAT due to rate limiting kicking in when installing packages
 ARG GITHUB_PAT= 
@@ -24,7 +24,8 @@ RUN sed -i '/developer\.download\.nvidia\.com\/compute\/cuda\/repos/d' /etc/apt/
 
 # Shiny server, for latest version see https://www.rstudio.com/products/shiny/download-server/ubuntu/
 # or use latest
-ENV SHINY_SERVER_VERSION 1.5.18.979
+COPY rocker_scripts/install_shiny_server.sh /rocker_scripts/install_shiny_server.sh
+ENV SHINY_SERVER_VERSION 1.5.19.996
 RUN /rocker_scripts/install_shiny_server.sh
 
 # Shiny server customization
@@ -61,6 +62,7 @@ RUN /rocker_scripts/install_bibliomatrix.sh
 # preinstall bibliomatrix@KTH shinyapps into shiny server
 COPY rocker_scripts/install_shinyapps.sh /rocker_scripts/install_shinyapps.sh
 RUN /rocker_scripts/install_shinyapps.sh
+RUN /rocker_scripts/install_quarto.sh
 
 RUN rm ~/.Renviron
 

@@ -21,7 +21,7 @@ publishing analytics. It is also able to support data analysis work
 involving machine learning and algorithmic intelligence applications.
 
 It is an extension building on this
-[base](https://github.com/rocker-org/rocker-versioned2/wiki/ml-verse_b5f622740460).
+[base](https://github.com/rocker-org/rocker-versioned2/wiki/ml-verse_dcfdabe76d04).
 
 # Data Science using R and Python
 
@@ -33,8 +33,8 @@ to support workflows within bibliometric analytics are included, for
 example packages from [ROpenSci.org](https://ROpenSci.org).
 
 To support data science work using Python, a set of packages are
-provided including the open source version of Anaconda, which is a high
-performance distribution and includes over 100 of the most popular
+available including the open source version of Anaconda, which is a high
+performance distribution which includes over 100 of the most popular
 Python packages for data science.
 
 Additionally, it provides access to many hundreds of Python and R

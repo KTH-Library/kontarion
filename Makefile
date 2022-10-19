@@ -46,6 +46,7 @@ start-app:
 		--publish 8000:8000 \
 		--env-file $$HOME/.Renviron \
 		--volume $$HOME/.Renviron:/root/.Renviron:ro \
+		--volume $$HOME/.config:/root/.config:ro \
 		$(IMAGE) R -e "bibliomatrix::run_app('abm', port = 8000, host = '0.0.0.0')" 
 
 start-api:

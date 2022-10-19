@@ -46,7 +46,6 @@ install2.r --error --skipinstalled \
 	SAScii \
 	rscopus \
 	roadoi \
-	rAltmetric \
 	wosr \
 	bibliometrix \
 	leiden

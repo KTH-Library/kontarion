@@ -23,13 +23,13 @@ It therefore has various packages to support various bibliometrics workflows pre
 
 It is packaged as a docker image which consists of a Linux OS base with a full software stack of versioned R and Python components layered on top, in order to support Data Science work aiming at developing and publishing analytics. It is also able to support data analysis work involving machine learning and algorithmic intelligence applications. 
 
-It is an extension building on this [base](https://github.com/rocker-org/rocker-versioned2/wiki/ml-verse_b5f622740460).
+It is an extension building on this [base](https://github.com/rocker-org/rocker-versioned2/wiki/ml-verse_dcfdabe76d04).
 
 # Data Science using R and Python
 
 To support data science work using R, the web-variant of the RStudio IDE is included as well as a Shiny server. This means that it comes with a curated and pre-installed set of various assorted packages (including web-enabled RStudio with Shiny and rmarkdown support). Specific packages to support workflows within bibliometric analytics are included, for example packages from [ROpenSci.org](https://ROpenSci.org).
 
-To support data science work using Python, a set of packages are provided including the open source version of Anaconda, which is a high performance distribution and includes over 100 of the most popular Python packages for data science. 
+To support data science work using Python, a set of packages are available including the open source version of Anaconda, which is a high performance distribution which includes over 100 of the most popular Python packages for data science. 
 
 Additionally, it provides access to many hundreds of Python and R packages that can easily be installed using the conda dependency and environment manager, which is included in Anaconda.
 
