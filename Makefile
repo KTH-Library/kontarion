@@ -1,5 +1,7 @@
 #! make
 
+include env-docker
+
 IMAGE=kthb/kontarion
 
 .PHONY: all
@@ -10,7 +12,7 @@ devel:
 	docker build -t $(IMAGE):devel .
 
 latest:
-	docker build -t $(IMAGE) .
+	docker build -t $(IMAGE) --build-arg GITHUB_PAT=${GITHUB_PAT} .
 
 latest-release:
 	docker push $(IMAGE)
