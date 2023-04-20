@@ -2,7 +2,7 @@
 
 include env-docker
 
-IMAGE=kthb/kontarion
+IMAGE=KTH-Library/kontarion
 
 .PHONY: all
 
@@ -13,13 +13,6 @@ devel:
 
 latest:
 	docker build -t $(IMAGE) --build-arg GITHUB_PAT=${GITHUB_PAT} .
-
-latest-release:
-	docker push $(IMAGE)
-
-release:
-	docker login
-	docker push $(IMAGE)
 
 start-ide:
 	docker run -d --name mywebide \
