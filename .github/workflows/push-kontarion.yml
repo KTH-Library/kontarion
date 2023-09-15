@@ -13,6 +13,17 @@ jobs:
     -
       name: Checkout
       uses: actions/checkout@v4
+    - 
+      name: Free Up GitHub Actions Ubuntu Runner Disk Space 🔧
+      uses: jlumbroso/free-disk-space@main
+      with:
+        # frees about 6 GB, warning: may remove required tools
+        tool-cache: false
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        swap-storage: true
     -
       name: Docker meta
       id: meta
