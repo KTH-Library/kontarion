@@ -20,7 +20,7 @@ jobs:
         # frees about 6 GB, warning: may remove required tools
         tool-cache: false
         android: true
-        dotnet: true
+        dotnet: false
         haskell: true
         large-packages: true
         swap-storage: true
