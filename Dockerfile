@@ -9,8 +9,11 @@ ENV GITHUB_PAT=$GITHUB_PAT
 COPY rocker_scripts/install_minio.sh /rocker_scripts/install_minio.sh
 RUN /rocker_scripts/install_minio.sh
 
-RUN echo 'options(repos = c(CRAN = "https://packagemanager.rstudio.com/cran/__linux__/jammy/latest"))' >> ${R_HOME}/etc/Rprofile.site && \
-	R -e 'source("https://docs.rstudio.com/rspm/1.1.4/admin/check-user-agent.R")'
+RUN echo 'options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux__/jammy/latest"))' >> ${R_HOME}/etc/Rprofile.site && \
+	R -e 'source("https://docs.posit.co/rspm/admin/check-user-agent.R")'
+
+#RUN echo 'options(repos = c(CRAN = "https://packagemanager.rstudio.com/cran/__linux__/jammy/latest"))' >> ${R_HOME}/etc/Rprofile.site && \
+#	R -e 'source("https://docs.rstudio.com/rspm/1.1.4/admin/check-user-agent.R")'
 
 #RUN RSTUDIO_VERSION="daily" /rocker_scripts/install_rstudio.sh
 

@@ -3,10 +3,10 @@
 
 # kontarion <img src="https://raw.githubusercontent.com/KTH-Library/kontarion/master/kontarion.png" align="right" />
 
-`kontarion` is a dockerized Open BI Analytics Platform for reproducible
-open research work. It can be customized for data science workflows
-within different domains, and is currently profiled towards analytical
-workflows within *Bibliometrics*.
+`kontarion` is a containerized Open BI Analytics Platform for
+reproducible open research work. It can be customized for data science
+workflows within different domains, and is currently profiled towards
+analytical workflows within *Bibliometrics*.
 
 It therefore has various packages to support various bibliometrics
 workflows pre-installed. Connectivity has been set up to enable working
@@ -14,9 +14,9 @@ with various data sources, including MS SQL Server databases.
 
 ## What does it contain?
 
-It is packaged as a docker image which consists of a Linux OS base with
-a full software stack of versioned R and Python components layered on
-top, in order to support Data Science work aiming at developing and
+It is packaged as a container image which consists of a Linux OS base
+with a full software stack of versioned R and Python components layered
+on top, in order to support Data Science work aiming at developing and
 publishing analytics. It is also able to support data analysis work
 involving machine learning and algorithmic intelligence applications.
 
@@ -47,9 +47,9 @@ environment manager, which is included in Anaconda.
 
 Running locally requires that you have support for running containers,
 for example using [Docker Community
-Edition](https://docs.docker.com/engine/install/ubuntu/). Depending on
-your base operating system the installation procedures differ, but are
-well documented online.
+Edition](https://docs.docker.com/engine/install/ubuntu/) or
+[Podman](https://podman.io/). Depending on your base operating system
+the installation procedures differ, but are well documented online.
 
 Once you have `docker` installed, you can download and run `kontarion`
 locally using the following commands, provided you have `docker` and
@@ -107,7 +107,7 @@ Note that this command assumes several things:
 NB: This command may need to be amended on systems where these
 assumptions are not valid. If you get an initialization error that says
 “Unable to connect to service”, please check the above assumptions and
-modify the command to work for your system setup.
+modify the command to work for your setup.
 
 Having `git` and `make` available on your host system allows you to make
 changes, re-build the system or extend it and contribute these changes

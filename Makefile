@@ -2,7 +2,7 @@
 
 include env-docker
 
-IMAGE=KTH-Library/kontarion
+IMAGE=kthb/kontarion
 
 .PHONY: all
 
