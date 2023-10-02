@@ -64,6 +64,9 @@ RUN /rocker_scripts/install_bibliometrics.sh
 COPY rocker_scripts/install_bibliomatrix.sh /rocker_scripts/install_bibliomatrix.sh
 RUN /rocker_scripts/install_bibliomatrix.sh
 
+COPY rocker_scripts/install_utils.sh /rocker_scripts/install_utils.sh
+RUN /rocker_scripts/install_utils.sh
+
 # preinstall bibliomatrix@KTH shinyapps into shiny server
 COPY rocker_scripts/install_shinyapps.sh /rocker_scripts/install_shinyapps.sh
 RUN /rocker_scripts/install_shinyapps.sh
