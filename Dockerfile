@@ -74,6 +74,11 @@ RUN /rocker_scripts/install_quarto.sh
 
 RUN rm ~/.Renviron
 
+# preinstall CA cert in trust store
+
+COPY rocker_scripts/install_ca_cert.sh /rocker_scripts/install_ca_cert.sh
+RUN /rocker_scripts/install_ca_cert.sh
+
 EXPOSE 8888
 EXPOSE 3838
 
