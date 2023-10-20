@@ -10,6 +10,8 @@ set -e
 curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 curl https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
+#echo msodbcsql18 msodbcsql/ACCEPT_EULA boolean true | debconf-set-selections
+
 # mssql odbc driver and tools (bcp, sqlcmd, unixODBC dev headers)
 apt-get update
 ACCEPT_EULA=Y apt-get install -y --no-install-recommends \

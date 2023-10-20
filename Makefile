@@ -9,7 +9,10 @@ IMAGE=kthb/kontarion
 all: latest
 
 devel:
-	docker build -t $(IMAGE):devel .
+	docker build -t $(IMAGE):devel --build-arg GITHUB_PAT=${GITHUB_PAT} .
+
+scan:
+	docker run -v /var/run/docker.sock:/var/run/docker.sock -v $$HOME/.trivy:/root/.cache/ aquasec/trivy:0.46.0 --timeout 10m image kthb/kontarion
 
 latest:
 	docker build -t $(IMAGE) --build-arg GITHUB_PAT=${GITHUB_PAT} .
