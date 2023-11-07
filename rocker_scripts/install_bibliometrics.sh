@@ -46,7 +46,6 @@ install2.r --error --skipinstalled \
 	rscopus \
 	roadoi \
 	wosr \
-	bibliometrix \
 	leiden
 
 install2.r --error --skipinstalled \
