@@ -14,7 +14,7 @@ library(DBI)
 library(dplyr)
 
 con_bibmon <- dbConnect(
-  odbc::odbc(), driver = "ODBC Driver 17 for SQL Server", 
+  odbc::odbc(), driver = "ODBC Driver 18 for SQL Server", 
   server = Sys.getenv("DBHOST"), database = Sys.getenv("DBNAME"), Port = 1433, 
   UID = Sys.getenv("DBUSER"), PWD = Sys.getenv("DBPASS")
 )

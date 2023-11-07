@@ -3,10 +3,10 @@
 
 # kontarion <img src="https://raw.githubusercontent.com/KTH-Library/kontarion/master/kontarion.png" align="right" />
 
-`kontarion` is a dockerized Open BI Analytics Platform for reproducible
-open research work. It can be customized for data science workflows
-within different domains, and is currently profiled towards analytical
-workflows within *Bibliometrics*.
+`kontarion` is a containerized Open BI Analytics Platform for
+reproducible open research work. It can be customized for data science
+workflows within different domains, and is currently profiled towards
+analytical workflows within *Bibliometrics*.
 
 It therefore has various packages to support various bibliometrics
 workflows pre-installed. Connectivity has been set up to enable working
@@ -14,27 +14,29 @@ with various data sources, including MS SQL Server databases.
 
 ## What does it contain?
 
-It is packaged as a docker image which consists of a Linux OS base with
-a full software stack of versioned R and Python components layered on
-top, in order to support Data Science work aiming at developing and
+It is packaged as a container image which consists of a Linux OS base
+with a full software stack of versioned R and Python components layered
+on top, in order to support Data Science work aiming at developing and
 publishing analytics. It is also able to support data analysis work
 involving machine learning and algorithmic intelligence applications.
 
 It is an extension building on this
-[base](https://github.com/rocker-org/rocker-versioned2/wiki/ml-verse_b5f622740460).
+[base](https://github.com/rocker-org/rocker-versioned2/wiki/ml-verse_5a4d24ef3e8d)
+from <https://rocker-project.org/>.
 
 # Data Science using R and Python
 
 To support data science work using R, the web-variant of the RStudio IDE
 is included as well as a Shiny server. This means that it comes with a
 curated and pre-installed set of various assorted packages (including
-web-enabled RStudio with Shiny and rmarkdown support). Specific packages
-to support workflows within bibliometric analytics are included, for
-example packages from [ROpenSci.org](https://ROpenSci.org).
+web-enabled RStudio with Shiny, plumber and quarto/rmarkdown support).
+Specific packages to support workflows within bibliometric analytics are
+included, for example packages from
+[ROpenSci.org](https://ROpenSci.org).
 
 To support data science work using Python, a set of packages are
-provided including the open source version of Anaconda, which is a high
-performance distribution and includes over 100 of the most popular
+available including the open source version of Anaconda, which is a high
+performance distribution which includes over 100 of the most popular
 Python packages for data science.
 
 Additionally, it provides access to many hundreds of Python and R
@@ -45,9 +47,9 @@ environment manager, which is included in Anaconda.
 
 Running locally requires that you have support for running containers,
 for example using [Docker Community
-Edition](https://docs.docker.com/v17.09/engine/installation/). Depending
-on your base operating system, installation procedures differ but are
-well documented online.
+Edition](https://docs.docker.com/engine/install/ubuntu/) or
+[Podman](https://podman.io/). Depending on your base operating system
+the installation procedures differ, but are well documented online.
 
 Once you have `docker` installed, you can download and run `kontarion`
 locally using the following commands, provided you have `docker` and
@@ -62,10 +64,10 @@ cd kontarion
 make start-ide
 ```
 
-This will download about \~ 4 GB of data, representing the
-`kthb/kontarion` Docker Image. The `make start-ide` will run the
-statements in the Makefile that starts the web-based RStudio Web Open
-Source Edition.
+The last command will download the image layers (container image),
+representing the `ghcr.io/KTH-Library/kontarion` Container Image. The
+`make start-ide` will run the statements in the Makefile that starts the
+web-based RStudio Web Open Source Edition.
 
 Use credentials for user/login: `rstudio/kontarion` when logging in.
 
@@ -86,27 +88,26 @@ docker run -d --name mywebide \
     --publish 8787:8787 \
     --volume $(pwd)/home:/home/rstudio \
     --volume $HOME/.Renviron:/home/rstudio/.Renviron \
-    kthb/kontarion /init
+    ghcr.io/KTH-Library/kontarion /init
 ```
 
 Note that this command assumes several things:
 
--   you have a directory named `home` under your present working
-    directory, representing your rstudio home directory (this will be
-    the case if you have checked out the kontarion github repo with
-    `git@github.com:KTH-Library/kontarion.git` and then changed your
-    present working directory into this folder)
--   you have your `.Renviron` file in your system home directory
-    (normally the location is available in the `HOME` system environment
-    variable) and that your `.Renviron` file holds your database
-    credentials in environment variables named DBHOST, DBNAME, DBUSER
-    and DBPASS
--   the command `id -u` returns the user id on the system
+- you have a directory named `home` under your present working
+  directory, representing your rstudio home directory (this will be the
+  case if you have checked out the kontarion github repo from
+  `git@github.com:KTH-Library/kontarion.git` and then changed your
+  present working directory into this folder)
+- you have your `.Renviron` file in your system home directory (normally
+  the location is available in the `HOME` system environment variable)
+  and that your `.Renviron` file holds your database credentials in
+  environment variables named DBHOST, DBNAME, DBUSER and DBPASS
+- the command `id -u` returns the user id on the system
 
 NB: This command may need to be amended on systems where these
-assumptions are not valid. If you get an intialization error that says
+assumptions are not valid. If you get an initialization error that says
 “Unable to connect to service”, please check the above assumptions and
-modify the command to work for your system setup.
+modify the command to work for your setup.
 
 Having `git` and `make` available on your host system allows you to make
 changes, re-build the system or extend it and contribute these changes
@@ -118,10 +119,11 @@ If you are a developer or system administrator, you might be interested
 in downloading and running `kontarion` locally but also in building it
 from source, extending it or contributing your changes.
 
-Once you have `docker` installed, to start `kontarion` locally, link a
-local volume (in this example, a `home` sub-folder under the current
-working directory, `$(pwd)`) to the container, start it and point your
-browser to it with these CLI commands:
+Once you have `docker` or `podman` with `buildah` installed, to start
+`kontarion` locally, link a local volume (in this example, a `home`
+sub-folder under the current working directory, `$(pwd)`) to the
+container, start it and point your browser to it with these CLI
+commands:
 
 ``` bash
 # start kontarion services to run the RStudio Open Source Web Edition
@@ -135,7 +137,7 @@ docker run -d --name mywebide \
     --publish 8787:8787 \
     --volume $(pwd)/home:/home/rstudio \
     --volume ~/.Renviron:/home/rstudio/.Renviron \
-    kthb/kontarion /init
+    ghcr.io/KTH-Library/kontarion /init
 
 # after a couple of seconds, use login rstudio:kontarion
 firefox http://localhost:8787 &
@@ -149,8 +151,8 @@ username:password as `rstudio:kontarion`.
 
 Use a custom user named after your user on the host, and password
 specified in the `PASSWORD` environmental variable, and give the user
-root permissions (add to sudoers) and work on files in the \~/foo
-working directory:
+root permissions (add to sudoers) and work on files in the ~/foo working
+directory:
 
 ``` bash
 docker run -d --name mywebide \
@@ -165,7 +167,7 @@ docker run -d --name mywebide \
 ```
 
 Available options are documented in more detail
-[here](https://github.com/rocker-org/rocker-versioned/blob/master/rstudio/README.md).
+[here](https://rocker-project.org/images/versioned/rstudio.html#how-to-use).
 
 ## Building from source
 
@@ -182,29 +184,42 @@ something like this:
         # if you want to time the build, use...
         time make
 
-This takes around 19 minutes on a modern laptop.
+Use `docker images | grep kontarion` to inspect the resulting image
+(which is what is downloaded from [GitHub Container
+Registry](https://github.com/orgs/KTH-Library/packages) if just issuing
+`make start-ide` and not building from source).
 
-Use `docker images | grep kontarion` to inspect the resulting image, its
-total size is around 7 GB uncompressed, and around 4 GB compressed
-(which is what is downloaded from [Docker
-Hub](https://hub.docker.com/r/kthb) if just issuing `make start-ide` and
-not building from source).
+If you wish you can access the CLI if you wish on the running `mywebide`
+container:
+
+``` bash
+docker exec -it mywebide bash
+```
+
+A CLI/shell/terminal is available also from within the IDE’s own UI.
+
+You can list the full set of included R packages by executing a command
+against the running container like so:
+
+``` bash
+docker exec -it mywebide \
+    R --quiet -e "cat(rownames(installed.packages()))"
+```
 
 ## Non-interactive usage
 
 The `kontarion` platform can also be used for purposes other than
 functioning as an IDE, such as running non-interactive services:
 
--   a *web application server* (for `shiny` based web applications etc)
--   an *API server* (for `plumber`-based REST APIs)
--   a *report server* (to render Rmarkdown-based content into HTML / PDF
-    / Office document-oriented and other supported document formats)
--   a *CLI execution context* for automating tasks (syncing data /
-    setting up data flows, scheduling jobs etc)
+- a *web application server* (for `shiny` based web applications etc)
+- an *API server* (for `plumber`-based REST APIs)
+- a *report server* (to render quarto or Rmarkdown-based content into
+  HTML / PDF / Office document-oriented and other supported document
+  formats)
+- a *CLI execution context* for automating tasks (syncing data / setting
+  up data flows, scheduling jobs etc)
 
 ### Running web apps
-
-TODO: document and provide Makefile target with example
 
 To use the image as a Shiny server, you can override the startup command
 to use `/usr/bin/shiny-server.sh`:
@@ -212,7 +227,7 @@ to use `/usr/bin/shiny-server.sh`:
 ``` bash
 docker run -d --name myshinyapp \
     -p 3838:3838 \
-    kthb/kontarion /usr/bin/shiny-server.sh
+    ghcr.io/KTH-Library/kontarion /usr/bin/shiny-server.sh
 
 firefox http://localhost:3838 &
 ```
@@ -238,39 +253,6 @@ If you have a Shiny app in a subdirectory of your present working
 directory named appdir, you can now use a web browser to access the app
 by visiting <http://localhost:3838/appdir/>
 
-### Running APIs
-
-TODO: document and provide Makefile target with example
-
-### Generating reports
-
-TODO: document and provide Makefile target with example
-
-### Running and scheduling tasks/jobs
-
-TODO: document and provide Makefile target with example
-
-If you wish you can access the CLI if you wish on the running `mywebide`
-container:
-
-``` bash
-docker exec -it mywebide bash
-```
-
-A CLI/shell/terminal is available also from within the IDE’s own UI.
-
-You can list the full set of included R packages by executing a command
-against the running container like so:
-
-``` bash
-docker exec -it mywebide \
-    R --quiet -e "cat(rownames(installed.packages()))"
-```
-
-# Using Python
-
-TODO: cover more scenarios…
-
 ## Jupyter Notebook server
 
 You can start a Jupyter Notebook server and interact with Anaconda via
@@ -278,7 +260,7 @@ your browser:
 
 ``` bash
 docker run -it -p 8888:8888 \
-  kthb/kontarion /bin/bash -c "/opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks && /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser"
+  ghcr.io/KTH-Library/kontarion /bin/bash -c "/opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks && /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser"
 ```
 
 You can then view the Jupyter Notebook by opening

@@ -15,4 +15,3 @@ R -e 'remotes::install_github("kth-library/bibliomatrix", dependencies=TRUE)'
 R -e 'ktheme::install_fonts_linux("/usr/local/share/fonts")'
 R -e 'remotes::install_github("kth-library/kthcorpus", dependencies=TRUE)'
 
-

@@ -11,10 +11,10 @@ apt-get update && apt-get install -y --no-install-recommends \
 	apt-utils \
 	mercurial \
 	subversion
-	
+
 export PATH=/opt/conda/bin:$PATH
 
-wget --quiet https://repo.anaconda.com/archive/Anaconda3-5.3.1-Linux-x86_64.sh -O ~/anaconda.sh && \
+wget --quiet https://repo.anaconda.com/archive/Anaconda3-2022.10-Linux-aarch64.sh -O ~/anaconda.sh && \
     /bin/bash ~/anaconda.sh -b -p /opt/conda && \
     rm ~/anaconda.sh && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \

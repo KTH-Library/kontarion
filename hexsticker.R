@@ -29,8 +29,25 @@ image_read(imgurl_dest) %>%
 # (requires imagemagick ie sudo apt install imagemagick-6.q16)
 # convert -size 1186x1186 xc:none -fill kth-logo.png -draw "translate 593,593 circle 0,0 593,0" kth-logo-circle.png
 
- "https://www.kth.se/polopoly_fs/1.77257.1550147376!/KTH_Logotyp_RGB_2013-2.svg" %>%
- image_read_svg(width = 480, height = 480) %>%
- image_convert(format = "png") %>%
- image_resize("240x240") %>%
+"https://intra.kth.se/polopoly_fs/1.1278345.1695709369!/KTH-logotyp-sk%C3%A4rm-RGB.zip" |> 
+download.file("/tmp/logo.zip")
+
+svg_path <- 
+  zip::zip_list("/tmp/logo.zip")$filename |> 
+  stringr::str_extract(".*?bla.svg$") |> 
+  na.omit() |> as.character()
+
+utils::unzip("/tmp/logo.zip", files = svg_path, exdir = "/tmp")
+
+library(magick)
+
+#old: "https://www.kth.se/polopoly_fs/1.77257.1550147376!/KTH_Logotyp_RGB_2013-2.svg" |> 
+file.path("/tmp", svg_path) |> 
+ image_read_svg(width = 480, height = 480)  |> 
+ image_convert(format = "png") |> 
+ image_resize("240x240") |> 
  image_write(path = "kth-logo.png")
+
+#"https://kth-library.github.io/assets/img/logo-square.png" |> image_read()
+
+

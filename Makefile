@@ -1,5 +1,7 @@
 #! make
 
+include env-docker
+
 IMAGE=kthb/kontarion
 
 .PHONY: all
@@ -7,17 +9,13 @@ IMAGE=kthb/kontarion
 all: latest
 
 devel:
-	docker build -t $(IMAGE):devel .
+	docker build -t $(IMAGE):devel --build-arg GITHUB_PAT=${GITHUB_PAT} .
+
+scan:
+	docker run -v /var/run/docker.sock:/var/run/docker.sock -v $$HOME/.trivy:/root/.cache/ aquasec/trivy:0.46.0 --timeout 10m image kthb/kontarion
 
 latest:
-	docker build -t $(IMAGE) .
-
-latest-release:
-	docker push $(IMAGE)
-
-release:
-	docker login
-	docker push $(IMAGE)
+	docker build -t $(IMAGE) --build-arg GITHUB_PAT=${GITHUB_PAT} .
 
 start-ide:
 	docker run -d --name mywebide \
@@ -46,6 +44,7 @@ start-app:
 		--publish 8000:8000 \
 		--env-file $$HOME/.Renviron \
 		--volume $$HOME/.Renviron:/root/.Renviron:ro \
+		--volume $$HOME/.config:/root/.config:ro \
 		$(IMAGE) R -e "bibliomatrix::run_app('abm', port = 8000, host = '0.0.0.0')" 
 
 start-api:

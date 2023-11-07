@@ -39,7 +39,6 @@ install2.r --error --skipinstalled \
 
 # specific bibliometrics packages
 install2.r --error --skipinstalled \
-	microdemic \
 	scholar \
 	CITAN \
 	sas7bdat \

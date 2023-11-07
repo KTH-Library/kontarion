@@ -4,9 +4,13 @@ set -e
 # Dependency scripts to run first
 #. /rocker_scripts/install_s6init.sh
 
-# MS ODBC installation (adapted from https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15)
+# MS ODBC installation, adapted from ...
+# https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server
+
 curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+curl https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list > /etc/apt/sources.list.d/mssql-release.list
+
+#echo msodbcsql18 msodbcsql/ACCEPT_EULA boolean true | debconf-set-selections
 
 # mssql odbc driver and tools (bcp, sqlcmd, unixODBC dev headers)
 apt-get update
