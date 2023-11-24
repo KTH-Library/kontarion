@@ -9,6 +9,8 @@ on:
 jobs:
   kontarion-push:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.BUILDX_PAT }}    
     steps:
     -
       name: Checkout
