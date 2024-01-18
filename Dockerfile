@@ -1,5 +1,5 @@
 # R v 4 + python 3, Tensorflow, tidyverse, devtools, verse (tex and publishing related tools)
-FROM rocker/ml-verse:4.3.1
+FROM rocker/ml-verse:4.3.2
 
 # add GITHUB_PAT due to rate limiting kicking in when installing packages
 ARG GITHUB_PAT= 
