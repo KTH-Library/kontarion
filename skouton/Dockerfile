@@ -6,3 +6,7 @@ ENV GITHUB_PAT=$GITHUB_PAT
 
 COPY rocker_scripts/install_bibliotools.sh /rocker_scripts/install_bibliotools.sh
 RUN /rocker_scripts/install_bibliotools.sh
+
+# overwrite shiny server default app installation
+COPY rocker_scripts/install_research_info.sh /rocker_scripts/install_research_info.sh
+RUN /rocker_scripts/install_research_info.sh
