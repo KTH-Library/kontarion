@@ -10,3 +10,4 @@ R -e 'remotes::install_github("kth-library/bibliotools", dependencies=TRUE)'
 # extra packages, can be removed once included in bibliotools DESCRIPTION
 R -e 'install.packages(c("DT", "esquisse", "phonics", "future", "future.callr"))'
 R -e 'remotes::install_github("kth-library/meili", dependencies=TRUE)'
+R -e 'remotes::install_version("dbplyr", version="2.3.4")'
