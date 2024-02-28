@@ -3,7 +3,7 @@ set -e
 
 #install2.r --error --skipinstalled \
 
-# packages from github.com/kth-library
+# packages from github.com/KTH-Library
 echo "GITHUB_PAT=$GITHUB_PAT" >> ~/.Renviron
 R -e 'remotes::install_github("kth-library/dblp", dependencies=TRUE)'
 R -e 'remotes::install_github("kth-library/XsearchLIBRIS", dependencies=TRUE)'
