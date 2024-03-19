@@ -5,6 +5,7 @@ set -e
 
 # packages from github.com/KTH-Library
 echo "GITHUB_PAT=$GITHUB_PAT" >> ~/.Renviron
+
 R -e 'remotes::install_github("kth-library/dblp", dependencies=TRUE)'
 R -e 'remotes::install_github("kth-library/XsearchLIBRIS", dependencies=TRUE)'
 R -e 'remotes::install_github("kth-library/institutions", dependencies=TRUE)'

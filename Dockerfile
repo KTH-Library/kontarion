@@ -28,7 +28,7 @@ RUN echo 'options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux
 # Shiny server, for latest version see https://posit.co/download/shiny-server/
 # or use latest
 COPY rocker_scripts/install_shiny_server.sh /rocker_scripts/install_shiny_server.sh
-ENV SHINY_SERVER_VERSION 1.5.21.1012
+ENV SHINY_SERVER_VERSION 1.5.22.1017
 RUN /rocker_scripts/install_shiny_server.sh
 
 # Shiny server customization
