@@ -5,7 +5,10 @@ ARG GITHUB_PAT=
 ENV GITHUB_PAT=$GITHUB_PAT
 
 # overwrite shiny server default app installation
-COPY rocker_scripts/install_bibcap.sh /rocker_scripts/install_bibcap.sh
+COPY scripts/install_bibcap.sh /rocker_scripts/install_bibcap.sh
 RUN /rocker_scripts/install_bibcap.sh
+
+# avoid cache hit if none of the above scripts have been altered
+COPY scripts /rocker_scripts
 
 CMD /usr/bin/shiny-server.sh
