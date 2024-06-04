@@ -1,0 +1,11 @@
+FROM ghcr.io/kth-library/skouton:latest
+
+# add GITHUB_PAT due to rate limiting kicking in when installing packages
+ARG GITHUB_PAT= 
+ENV GITHUB_PAT=$GITHUB_PAT
+
+# overwrite shiny server default app installation
+COPY rocker_scripts/install_bibcap.sh /rocker_scripts/install_bibcap.sh
+RUN /rocker_scripts/install_bibcap.sh
+
+CMD /usr/bin/shiny-server.sh

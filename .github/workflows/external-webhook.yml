@@ -33,6 +33,19 @@ jobs:
           type=sha
           type=raw,value=latest
     -
+      name: Docker meta for klivanion
+      id: meta2
+      uses: docker/metadata-action@v5
+      with:
+        images: |
+          ghcr.io/${{ github.repository_owner }}/klivanion
+        tags: |
+          type=raw,value=1.0.${{ github.run_number }},priority=1000
+          type=ref,event=branch
+          type=sha
+          type=raw,value=latest
+
+    -
       name: Set up QEMU
       uses: docker/setup-qemu-action@v3
     -
@@ -46,13 +59,25 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.CR_PAT }}
     -
-      name: Docker build and push
+      name: Docker build and push skouton
       uses: docker/build-push-action@v5
       with:
         context: "{{defaultContext}}:skouton"
         build-args: GITHUB_PAT=${{ secrets.BUILDX_PAT }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+        push: true
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    -
+      name: Docker build and push klivanion
+      uses: docker/build-push-action@v5
+      with:
+        context: "{{defaultContext}}:skouton"
+        file: Dockerfile.klivanion
+        build-args: GITHUB_PAT=${{ secrets.BUILDX_PAT }}
+        tags: ${{ steps.meta2.outputs.tags }}
+        labels: ${{ steps.meta2.outputs.labels }}
         push: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
