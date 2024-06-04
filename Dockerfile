@@ -5,7 +5,7 @@ FROM rocker/ml-verse:4.4.0
 ARG GITHUB_PAT=
 ENV GITHUB_PAT=$GITHUB_PAT
 
-COPY scripts /rocker_scripts
+#COPY scripts /rocker_scripts
 
 # install S3 client (minio client)
 COPY rocker_scripts/install_minio.sh /rocker_scripts/install_minio.sh
@@ -14,8 +14,8 @@ RUN /rocker_scripts/install_minio.sh
 RUN echo 'options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux__/jammy/latest"))' >> ${R_HOME}/etc/Rprofile.site && \
 	R -e 'source("https://docs.posit.co/rspm/admin/check-user-agent.R")'
 
-# Shiny server, for latest version see https://posit.co/download/shiny-server/
-# or use latest
+# Shiny server, for latest version either open https://posit.co/download/shiny-server/
+# or find the latest version using "Rscript rocker_scripts/shiny_server_versions.R"
 COPY rocker_scripts/install_shiny_server.sh /rocker_scripts/install_shiny_server.sh
 ENV SHINY_SERVER_VERSION 1.5.23.1020
 RUN /rocker_scripts/install_shiny_server.sh
@@ -77,4 +77,4 @@ ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
 
 # NB: if running with the shiny server, launch using this command: /usr/bin/shiny-server.sh
-# NB: if running loadtest, launch using this command: "/init"
+# NB: if running rstudio web IDE (for loadtest etc), launch using this command: "/init"
