@@ -13,3 +13,5 @@ RUN /rocker_scripts/install_research_info.sh
 
 # avoid cache hit if none of the above scripts have been altered
 COPY scripts /rocker_scripts
+
+USER shiny
