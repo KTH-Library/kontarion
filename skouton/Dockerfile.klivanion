@@ -1,5 +1,7 @@
 FROM ghcr.io/kth-library/skouton:latest
 
+USER root
+
 # add GITHUB_PAT due to rate limiting kicking in when installing packages
 ARG GITHUB_PAT= 
 ENV GITHUB_PAT=$GITHUB_PAT
