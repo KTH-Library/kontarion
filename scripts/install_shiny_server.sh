@@ -41,8 +41,8 @@ gdebi -n ss-latest.deb
 rm ss-latest.deb
 
 # Get R packages
-R -e 'remotes::install_version("shiny", "1.10.0")'
-install2.r --error --skipinstalled -n "$NCPUS" rmarkdown  #removed shiny here, for specific version above
+#R -e 'remotes::install_version("shiny", "1.10.0")'
+install2.r --error --skipinstalled -n "$NCPUS" rmarkdown shiny # for specific shiny version, removed shiny here and use code above
 
 # Set up directories and permissions
 if [ -x "$(command -v rstudio-server)" ]; then
