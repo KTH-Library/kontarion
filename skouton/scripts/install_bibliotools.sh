@@ -8,5 +8,4 @@ R -e 'update.packages()'
 R -e 'remotes::install_github("kth-library/bibliotools", dependencies=TRUE)'
 
 # extra packages, can be removed once included in bibliotools DESCRIPTION file
-R -e 'install.packages(c("DT", "bcrypt", "esquisse", "phonics", "future", "future.callr"))'
-R -e 'remotes::install_github("kth-library/meili", dependencies=TRUE)'
+R -e 'install.packages(c("bcrypt", "esquisse", "phonics", "future", "future.callr"))'
