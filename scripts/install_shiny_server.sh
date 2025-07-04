@@ -41,7 +41,7 @@ gdebi -n ss-latest.deb
 rm ss-latest.deb
 
 # Get R packages
-R -e 'install.packages("shiny")'
+R -e 'install.packages("shiny", repos="https://cloud.r-project.org")'
 install2.r --error --skipinstalled -n "$NCPUS" rmarkdown
 
 # Set up directories and permissions
