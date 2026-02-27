@@ -39,7 +39,6 @@ install2.r --error --skipinstalled \
 
 # specific bibliometrics packages
 install2.r --error --skipinstalled \
-	#scholar \
 	CITAN \
 	sas7bdat \
 	SAScii \
@@ -47,11 +46,15 @@ install2.r --error --skipinstalled \
 	roadoi \
 	wosr \
 	leiden
+	
+#scholar \
 
 install2.r --error --skipinstalled \
 	rcrossref \
 	citecorp \
 	rbibutils
+	
+
 
 # packages from GitHub
 R -e 'remotes::install_github("ropensci/crevents", dependencies = TRUE)'
