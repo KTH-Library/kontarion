@@ -39,7 +39,7 @@ install2.r --error --skipinstalled \
 
 # specific bibliometrics packages
 install2.r --error --skipinstalled \
-	scholar \
+	#scholar \
 	CITAN \
 	sas7bdat \
 	SAScii \
