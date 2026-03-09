@@ -50,7 +50,7 @@ jobs:
         password: ${{ secrets.CR_PAT }}
     -
       name: Docker build and push
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v7
       with:
         context: .
         build-args: GITHUB_PAT=${{ secrets.BUILDX_PAT }}
