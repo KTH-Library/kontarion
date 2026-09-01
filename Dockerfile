@@ -1,5 +1,5 @@
 # R v 4.4 + python 3, Tensorflow, tidyverse, devtools, verse (tex and publishing related tools)
-FROM ghcr.io/rocker-org/ml-verse:4.4
+FROM ghcr.io/rocker-org/ml-verse:4.4.1
 
 # add GITHUB_PAT due to rate limiting kicking in when installing packages
 ARG GITHUB_PAT=
@@ -15,7 +15,7 @@ RUN echo 'options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux
 # Shiny server, for latest version either open https://posit.co/download/shiny-server/
 # or find the latest version using "Rscript scripts/shiny_server_versions.R"
 COPY scripts/install_shiny_server.sh /rocker_scripts/install_shiny_server.sh
-ENV SHINY_SERVER_VERSION 1.5.23.1020
+ENV SHINY_SERVER_VERSION 1.5.23.1030
 RUN /rocker_scripts/install_shiny_server.sh
 
 # Shiny server customization
