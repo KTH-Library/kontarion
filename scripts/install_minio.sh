@@ -3,5 +3,5 @@ set -e
 
 # install minio client
 cd /usr/local/bin && \
-  wget -q --show-progress https://dl.min.io/client/mc/release/linux-amd64/mc && \
+  wget -q https://dl.min.io/aistor/mc/release/linux-amd64/mc && \
   chmod +x mc

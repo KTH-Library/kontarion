@@ -7,8 +7,18 @@ set -e
 # MS ODBC installation, adapted from ...
 # https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server
 
-curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-curl https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list > /etc/apt/sources.list.d/mssql-release.list
+# the microsoft.asc key alone no longer matches the signing key on newer Ubuntu
+# releases' repos (key rotation) - the packages-microsoft-prod.deb bundles the
+# current keyring + sources.list entry together, per MS's current install docs
+#
+# NB: Microsoft has not published msodbcsql/mssql-tools packages for Ubuntu
+# 26.04 "resolute" yet (only unrelated tools like kubectl/moby are there), so
+# this deliberately targets the 24.04 repo instead of $(lsb_release -rs); swap
+# back once MS ships resolute packages - check:
+# https://packages.microsoft.com/ubuntu/26.04/prod/dists/resolute/main/binary-amd64/Packages
+curl -sSL "https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb" -o /tmp/packages-microsoft-prod.deb
+dpkg -i /tmp/packages-microsoft-prod.deb
+rm /tmp/packages-microsoft-prod.deb
 
 #echo msodbcsql18 msodbcsql/ACCEPT_EULA boolean true | debconf-set-selections
 
