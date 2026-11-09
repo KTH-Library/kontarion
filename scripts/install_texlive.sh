@@ -6,7 +6,11 @@ if [[ -x "/usr/bin/latex" ]]; then
     exit 0
 fi
 
-CTAN_REPO=${1:-${CTAN_REPO:-"https://mirror.ctan.org/systems/texlive/tlnet"}}
+# mirror.ctan.org geo-redirects based on the requester's IP, so local builds
+# and CI runners can land on different (and sometimes broken - e.g.
+# ctan.math.utah.edu's cert chain) mirrors on every run; pin to a single
+# reliable, directly-addressed mirror instead for reproducibility
+CTAN_REPO=${1:-${CTAN_REPO:-"https://mirrors.mit.edu/CTAN/systems/texlive/tlnet"}}
 
 ARCH=$(uname -m)
 
