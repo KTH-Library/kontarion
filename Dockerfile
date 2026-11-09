@@ -5,7 +5,7 @@
 # Pinned by digest rather than a moving tag (rocker-org/ml has no per-R-version
 # tags anymore, just `latest`/`py3.14`); to pick up a newer build, look up the
 # current digest via: skopeo inspect docker://ghcr.io/rocker-org/ml:latest
-FROM ghcr.io/rocker-org/ml@sha256:271af40d7db0f25c678d246b5096249b5f9d5c7a35d923cde9a98b4f164eca38
+FROM ghcr.io/rocker-org/ml@sha256:c2fdb711d10ecb9538d3cf757585f0774a4b8c39b622e9b017b7f28cc0e7519f
 
 # rocker-org/ml defaults to USER jovyan (uid 1000, Jupyter convention); ml-verse
 # built as root, and the install scripts below (apt-get, writes to /usr/local,
@@ -50,9 +50,9 @@ COPY scripts/install_s6init.sh /rocker_scripts/install_s6init.sh
 COPY scripts/install_pandoc.sh /rocker_scripts/install_pandoc.sh
 COPY scripts/init_set_env.sh /rocker_scripts/init_set_env.sh
 COPY scripts/install_shiny_server.sh /rocker_scripts/install_shiny_server.sh
-ENV SHINY_SERVER_VERSION 1.5.23.1030
+ENV SHINY_SERVER_VERSION 1.5.25.1051
 # NB: this is the Shiny Server .deb's own build-path tag, unrelated to this
-# image's actual Ubuntu version (26.04) — 1.5.23.1030 was published under
+# image's actual Ubuntu version (26.04) — 1.5.25.1051 was published under
 # ubuntu-20.04; check the actual published path before bumping either version
 ENV UBUNTU_VERSION 20.04
 # rocker-org/ml's interactive/login user is "jovyan" (Jupyter convention);
