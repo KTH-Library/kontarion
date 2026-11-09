@@ -113,10 +113,14 @@ RUN /rocker_scripts/install_ca_cert.sh
 # avoid cache hit if none of the above scripts have been altered
 COPY scripts /rocker_scripts
 
+# recompute HOME from the actual runtime UID before exec'ing anything else -
+# see scripts/docker-entrypoint.sh for why
+COPY scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+
 EXPOSE 8888
 EXPOSE 3838
 
-ENTRYPOINT [ "/usr/bin/tini", "--" ]
+ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
 CMD [ "/bin/bash" ]
 
 # NB: if running with the shiny server, launch using this command: /usr/bin/shiny-server.sh
