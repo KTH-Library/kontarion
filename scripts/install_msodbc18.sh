@@ -7,8 +7,12 @@ set -e
 # MS ODBC installation, adapted from ...
 # https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server
 
-curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-curl https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list > /etc/apt/sources.list.d/mssql-release.list
+# the microsoft.asc key alone no longer matches the signing key on newer Ubuntu
+# releases' repos (key rotation) - the packages-microsoft-prod.deb bundles the
+# current keyring + sources.list entry together, per MS's current install docs
+curl -sSL "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb" -o /tmp/packages-microsoft-prod.deb
+dpkg -i /tmp/packages-microsoft-prod.deb
+rm /tmp/packages-microsoft-prod.deb
 
 #echo msodbcsql18 msodbcsql/ACCEPT_EULA boolean true | debconf-set-selections
 

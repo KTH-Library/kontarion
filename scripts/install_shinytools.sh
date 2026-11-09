@@ -2,7 +2,8 @@
 set -e
 
 apt-get -y update && apt-get install -y --no-install-recommends \
-	apache2-utils  # for ab (apache benchmark tool)
+	apache2-utils \
+	default-jre-headless  # for ab and shinycannon respectively; `dpkg -i` below won't auto-resolve this
 
 # shinycannon, shinyloadtest, shinytest
 

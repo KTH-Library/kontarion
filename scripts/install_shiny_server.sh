@@ -50,7 +50,9 @@ if [ -x "$(command -v rstudio-server)" ]; then
     adduser "${DEFAULT_USER}" shiny
 fi
 
-cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/
+# r2u/bspm may install R packages into the system library (/usr/lib/R/site-library)
+# rather than /usr/local/lib/R/site-library, so resolve the path via R itself
+cp -R "$(Rscript -e 'cat(system.file("examples", package="shiny"))')"/* /srv/shiny-server/
 chown shiny:shiny /var/lib/shiny-server
 mkdir -p /var/log/shiny-server
 chown shiny:shiny /var/log/shiny-server
@@ -77,4 +79,4 @@ rm -rf /tmp/downloaded_packages
 
 ## Strip binary installed lybraries from RSPM
 ## https://github.com/rocker-org/rocker-versioned2/issues/340
-strip /usr/local/lib/R/site-library/*/libs/*.so
+strip /usr/local/lib/R/site-library/*/libs/*.so 2>/dev/null || true
