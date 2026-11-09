@@ -10,13 +10,7 @@ set -e
 # the microsoft.asc key alone no longer matches the signing key on newer Ubuntu
 # releases' repos (key rotation) - the packages-microsoft-prod.deb bundles the
 # current keyring + sources.list entry together, per MS's current install docs
-#
-# NB: Microsoft has not published msodbcsql/mssql-tools packages for Ubuntu
-# 26.04 "resolute" yet (only unrelated tools like kubectl/moby are there), so
-# this deliberately targets the 24.04 repo instead of $(lsb_release -rs); swap
-# back once MS ships resolute packages - check:
-# https://packages.microsoft.com/ubuntu/26.04/prod/dists/resolute/main/binary-amd64/Packages
-curl -sSL "https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb" -o /tmp/packages-microsoft-prod.deb
+curl -sSL "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb" -o /tmp/packages-microsoft-prod.deb
 dpkg -i /tmp/packages-microsoft-prod.deb
 rm /tmp/packages-microsoft-prod.deb
 
