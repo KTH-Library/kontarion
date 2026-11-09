@@ -1,0 +1,15 @@
+# CUDA-enabled variant of kontarion, built as a thin layer on top (same
+# pattern as skouton/klivanion) rather than from a separate rocker/cuda base
+# image - NVIDIA now publishes a native CUDA apt repo for Ubuntu 26.04
+# "resolute" (kontarion's base OS), so no separate base is needed
+FROM ghcr.io/kth-library/kontarion:latest
+
+USER root
+
+COPY scripts/install_cuda.sh /rocker_scripts/install_cuda.sh
+RUN /rocker_scripts/install_cuda.sh
+
+# the apt-installed cuda-toolkit doesn't add itself to PATH/LD_LIBRARY_PATH
+# (nvcc lives under /usr/local/cuda/bin, libs under /usr/local/cuda/lib64)
+ENV PATH="/usr/local/cuda/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
